@@ -13,12 +13,57 @@
         android:id="@+id/img_card1"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="5dp"
         android:src="@drawable/c_red_joker"
-        app:layout_constraintBottom_toTopOf="@id/btn_deal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/img_card2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/img_card2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/img_card3" />
+
+    <ImageView
+        android:id="@+id/img_card2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/c_red_joker"
+        app:layout_constraintLeft_toRightOf="@id/img_card1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_card1"
+        app:layout_constraintBottom_toBottomOf="@id/img_card1" />
+
+    <ImageView
+        android:id="@+id/img_card3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:src="@drawable/c_red_joker"
+        app:layout_constraintBottom_toTopOf="@id/img_card5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/img_card4"
+        app:layout_constraintTop_toBottomOf="@id/img_card1" />
+
+    <ImageView
+        android:id="@+id/img_card4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/c_red_joker"
+        app:layout_constraintLeft_toRightOf="@id/img_card3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_card3"
+        app:layout_constraintBottom_toBottomOf="@id/img_card3" />
+
+    <ImageView
+        android:id="@+id/img_card5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:src="@drawable/c_red_joker"
+        android:baselineAlignBottom="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_card3"
+        app:layout_constraintBottom_toTopOf="@id/btn_deal" />
 
     <Button
         android:id="@+id/btn_deal"

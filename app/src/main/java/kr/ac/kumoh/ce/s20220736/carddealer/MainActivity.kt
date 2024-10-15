@@ -2,6 +2,7 @@ package kr.ac.kumoh.ce.s20220736.carddealer
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("DiscouragedApi")     // '쓰면 안 좋은 것 알지만, 그럼에도 쓰겠다'는 의지 표명
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.i("Lifecycle is started!!!!!!!", "onCreate()")
         enableEdgeToEdge()
         // setContentView(R.layout.activity_main)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -25,14 +28,28 @@ class MainActivity : AppCompatActivity() {
 //            Log.i("Card is distributed.", R.drawable.c_2_of_clubs.toString())
 //            Log.i("Card is distributed.", R.drawable.c_2_of_diamonds.toString())
 
-            val c = Random.nextInt(52)
+            val c = IntArray(5)
+            val res = IntArray(5)
 
-            val res = resources.getIdentifier(
-                getCardName(c),
-                "drawable",
-                packageName
-            )
-            mainBinding.imgCard1.setImageResource(res)
+//            for (i in 0..4) {
+            for (i in c.indices) {
+                c[i] = Random.nextInt(52)
+
+                Log.i("Test", "${c[i]} : " + getCardName(c[i]))
+
+                res[i] = resources.getIdentifier(
+                    getCardName(c[i]),
+                    "drawable",
+                    packageName
+                )
+            }
+
+            mainBinding.imgCard1.setImageResource((res[0]))
+            mainBinding.imgCard2.setImageResource((res[1]))
+            mainBinding.imgCard3.setImageResource((res[2]))
+            mainBinding.imgCard4.setImageResource((res[3]))
+            mainBinding.imgCard5.setImageResource((res[4]))
+
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -61,5 +78,41 @@ class MainActivity : AppCompatActivity() {
         }
 
         return "c_${number}_of_${shape}"
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        Log.i("Lifecycle is started!!!!!!!", "onStart()")
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        Log.i("Lifecycle is started!!!!!!!", "onResume()")
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        Log.i("Lifecycle is started!!!!!!!", "onPause()")
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        Log.i("Lifecycle is started!!!!!!!", "onStop()")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+
+        Log.i("Lifecycle is started!!!!!!!", "onRestart()")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Log.i("Lifecycle is started!!!!!!!", "onDestroy()")
     }
 }
