@@ -91,7 +91,11 @@ class MainActivity : AppCompatActivity() {
             else -> "error"
         }
 
-        return "c_${number}_of_${shape}"
+//        return "c_${number}_of_${shape}"
+        return if (c % 13 in 10..12)
+            "c_${number}_of_${shape}2"
+        else
+            "c_${number}_of_${shape}"
     }
 
     override fun onStart() {
