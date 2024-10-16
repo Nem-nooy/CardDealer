@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kr.ac.kumoh.ce.s20220736.carddealer.databinding.ActivityMainBinding
 import kotlin.random.Random
@@ -26,24 +27,9 @@ class MainActivity : AppCompatActivity() {
 
         val model = ViewModelProvider(this)[CardViewModel::class.java]
 
-        val res = IntArray(5)
-
-        model.cards.value!!.forEachIndexed { index, num ->
-            res[index] = resources.getIdentifier(
-                getCardName(num),
-                "drawable",
-                packageName
-            )
-        }
-
-        mainBinding.imgCard1.setImageResource(res[0])
-        mainBinding.imgCard2.setImageResource(res[1])
-        mainBinding.imgCard3.setImageResource(res[2])
-        mainBinding.imgCard4.setImageResource(res[3])
-        mainBinding.imgCard5.setImageResource(res[4])
-
-        mainBinding.btnDeal.setOnClickListener {
-            model.shuffle()
+        model.cards.observe(this, Observer {
+            // cards 값이 바뀌면 옵저버 발동
+            val res = IntArray(5)
 
             model.cards.value!!.forEachIndexed { index, num ->
                 res[index] = resources.getIdentifier(
@@ -53,11 +39,30 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-            mainBinding.imgCard1.setImageResource((res[0]))
-            mainBinding.imgCard2.setImageResource((res[1]))
-            mainBinding.imgCard3.setImageResource((res[2]))
-            mainBinding.imgCard4.setImageResource((res[3]))
-            mainBinding.imgCard5.setImageResource((res[4]))
+            mainBinding.imgCard1.setImageResource(res[0])
+            mainBinding.imgCard2.setImageResource(res[1])
+            mainBinding.imgCard3.setImageResource(res[2])
+            mainBinding.imgCard4.setImageResource(res[3])
+            mainBinding.imgCard5.setImageResource(res[4])
+        })
+
+        mainBinding.btnDeal.setOnClickListener {
+            model.shuffle()
+
+            // 위에서 옵저버 걸어놨기 때문에, 이제 아래는 필요 X
+//            model.cards.value!!.forEachIndexed { index, num ->
+//                res[index] = resources.getIdentifier(
+//                    getCardName(num),
+//                    "drawable",
+//                    packageName
+//                )
+//            }
+//
+//            mainBinding.imgCard1.setImageResource((res[0]))
+//            mainBinding.imgCard2.setImageResource((res[1]))
+//            mainBinding.imgCard3.setImageResource((res[2]))
+//            mainBinding.imgCard4.setImageResource((res[3]))
+//            mainBinding.imgCard5.setImageResource((res[4]))
 
         }
 
