@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import kr.ac.kumoh.ce.s20220736.carddealer.databinding.ActivityMainBinding
 import kotlin.random.Random
 
@@ -23,22 +24,30 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
+        val model = ViewModelProvider(this)[CardViewModel::class.java]
+
+        val res = IntArray(5)
+
+        model.cards.forEachIndexed { index, num ->
+            res[index] = resources.getIdentifier(
+                getCardName(num),
+                "drawable",
+                packageName
+            )
+        }
+
+        mainBinding.imgCard1.setImageResource(res[0])
+        mainBinding.imgCard2.setImageResource(res[1])
+        mainBinding.imgCard3.setImageResource(res[2])
+        mainBinding.imgCard4.setImageResource(res[3])
+        mainBinding.imgCard5.setImageResource(res[4])
+
         mainBinding.btnDeal.setOnClickListener {
-//            Log.i("Card is distributed.", getCardName(32))
-//            Log.i("Card is distributed.", R.drawable.c_2_of_clubs.toString())
-//            Log.i("Card is distributed.", R.drawable.c_2_of_diamonds.toString())
+            model.shuffle()
 
-            val c = IntArray(5)
-            val res = IntArray(5)
-
-//            for (i in 0..4) {
-            for (i in c.indices) {
-                c[i] = Random.nextInt(52)
-
-                Log.i("Test", "${c[i]} : " + getCardName(c[i]))
-
-                res[i] = resources.getIdentifier(
-                    getCardName(c[i]),
+            model.cards.forEachIndexed {index, num ->
+                res[index] = resources.getIdentifier(
+                    getCardName(model.cards[index]),
                     "drawable",
                     packageName
                 )
