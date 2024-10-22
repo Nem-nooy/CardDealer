@@ -12,19 +12,12 @@ class CardViewModel : ViewModel() {
         get() = _cards
 
     fun shuffle() {
-        // var로 변경, size를 0으로 변경
-        var newCards = IntArray(0)
+        val newCards = mutableSetOf<Int>()
 
-        // 중복 검사
         while (newCards.size < 5) {
-            val num = Random.nextInt(52)
-            if (!newCards.contains(num))
-                newCards = newCards.plus(num)
+            newCards.add(Random.nextInt(52))
         }
-        
-        // 정렬
-        newCards.sort()
 
-        _cards.value = newCards
+        _cards.value = newCards.sorted().toIntArray()
     }
 }
