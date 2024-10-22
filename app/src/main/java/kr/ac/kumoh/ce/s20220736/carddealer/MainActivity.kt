@@ -25,25 +25,35 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
+        val imgCards = arrayOf(
+            mainBinding.imgCard1,
+            mainBinding.imgCard2,
+            mainBinding.imgCard3,
+            mainBinding.imgCard4,
+            mainBinding.imgCard5,
+        )
+
         val model = ViewModelProvider(this)[CardViewModel::class.java]
 
         model.cards.observe(this, Observer {
             // cards 값이 바뀌면 옵저버 발동
-            val res = IntArray(5)
+            // val res = IntArray(5)
 
             model.cards.value!!.forEachIndexed { index, num ->
-                res[index] = resources.getIdentifier(
-                    getCardName(num),
-                    "drawable",
-                    packageName
+                imgCards[index].setImageResource(
+                    resources.getIdentifier(
+                        getCardName(num),
+                        "drawable",
+                        packageName
+                    )
                 )
             }
 
-            mainBinding.imgCard1.setImageResource(res[0])
-            mainBinding.imgCard2.setImageResource(res[1])
-            mainBinding.imgCard3.setImageResource(res[2])
-            mainBinding.imgCard4.setImageResource(res[3])
-            mainBinding.imgCard5.setImageResource(res[4])
+            // mainBinding.imgCard1.setImageResource(res[0])
+            // mainBinding.imgCard2.setImageResource(res[1])
+            // mainBinding.imgCard3.setImageResource(res[2])
+            // mainBinding.imgCard4.setImageResource(res[3])
+            // mainBinding.imgCard5.setImageResource(res[4])
         })
 
         mainBinding.btnDeal.setOnClickListener {
